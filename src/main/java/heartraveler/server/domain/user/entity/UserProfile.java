@@ -42,6 +42,9 @@ public class UserProfile {
     @Column(name = "image_url")
     private String imageUrl;
 
+    @Column(name = "total_likes")
+    private int totalLikes;
+
     @OneToMany(mappedBy = "userProfile", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<MileageEarning> mileageEarnings= new ArrayList<>();
 
