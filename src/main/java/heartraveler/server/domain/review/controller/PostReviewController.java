@@ -17,8 +17,8 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 @RestController
-@RequestMapping("/post/review")
-@Tag(name = "Review", description = "포스트 리뷰 관련 API")
+@RequestMapping("/post-review")
+@Tag(name = "Post-Review", description = "포스트 리뷰 관련 API")
 @RequiredArgsConstructor
 public class PostReviewController {
     private final PostReviewCommandService postReviewCommandService;
