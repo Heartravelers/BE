@@ -7,17 +7,13 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ReservationRepository extends JpaRepository<Reservation, Long> {
 
     @Query("SELECT r FROM Reservation r WHERE r.userProfile.id = :userId ORDER BY r.date DESC")
     List<Reservation> findTop3ByUserProfileOrderByDateDesc(@Param("userId") Long userId);
 
-    @Query("SELECT r FROM Reservation r WHERE r.userProfile.id = :userId AND r.place.name LIKE %:keyword% AND (:cursor IS NULL OR r.id > :cursor) ORDER BY r.id ASC")
-    List<Reservation> findByUserIdAndPlaceNameContainingWithPagination(
-            @Param("userId") Long userId,
-            @Param("keyword") String keyword,
-            @Param("cursor") Long cursor,
-            Pageable pageable
-    );
+    @Query("SELECT r FROM Reservation r WHERE r.userProfile.id = :userId AND r.place.id = :placeId")
+    Optional<Reservation> findByUserProfileIdAndPlaceId(@Param("userId") Long userId, @Param("placeId") Long placeId);
 }

@@ -1,7 +1,8 @@
 package heartraveler.server.domain.review.controller;
 
-import heartraveler.server.domain.reservation.dto.ReservationListResponse;
 import heartraveler.server.domain.reservation.dto.ReservationPreviewResponse;
+import heartraveler.server.domain.review.dto.PlaceReviewSelectResponse;
+import heartraveler.server.domain.review.dto.PlaceSearchListResponse;
 import heartraveler.server.domain.review.service.PlaceReviewQueryService;
 import heartraveler.server.domain.user.exception.UserExceptionHandler;
 import heartraveler.server.global.common.ApiResponse;
@@ -34,19 +35,33 @@ public class PlaceReviewController {
         }
     }
 
-    @Operation(summary = "플레이스 리뷰 작성할 예약 내역 검색")
+    @Operation(summary = "플레이스 리뷰 작성할 장소 검색")
     @GetMapping("/search/{userId}")
-    public ResponseEntity<ApiResponse<ReservationListResponse>> getReservationList (@PathVariable Long userId,
-                                                                                    @RequestParam String keyword,
+    public ResponseEntity<ApiResponse<PlaceSearchListResponse>> getReservationList (@RequestParam String keyword,
                                                                                     @RequestParam(required = false) Long cursor,
                                                                                     @RequestParam(defaultValue = "10") int pageSize){
         try {
-            return ResponseEntity.ok(ApiResponse.onSuccess(placeReviewQueryService.getReservationList(userId, keyword, cursor, pageSize)));
+            return ResponseEntity.ok(ApiResponse.onSuccess(placeReviewQueryService.getPlaceSearchList(keyword, cursor, pageSize)));
         } catch (IllegalArgumentException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ApiResponse.onFailure(HttpStatus.BAD_REQUEST.name(), e.getMessage()));
         } catch (UserExceptionHandler e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ApiResponse.onFailure(ErrorCode.USER_NOT_FOUND.getCode(), ErrorCode.USER_NOT_FOUND.getMessage()));
         }
     }
+
+    @Operation(summary = "플레이스 리뷰 작성할 장소 선택")
+    @GetMapping("/{placeId}/{userId}")
+    public ResponseEntity<ApiResponse<PlaceReviewSelectResponse>> getPlaceDetails(@PathVariable Long placeId,
+                                                                                  @PathVariable Long userId){
+        try {
+            return ResponseEntity.ok(ApiResponse.onSuccess(placeReviewQueryService.getPlaceDetails(placeId, userId)));
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ApiResponse.onFailure(HttpStatus.BAD_REQUEST.name(), e.getMessage()));
+        } catch (UserExceptionHandler e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ApiResponse.onFailure(ErrorCode.USER_NOT_FOUND.getCode(), ErrorCode.USER_NOT_FOUND.getMessage()));
+        }
+    }
+
+
 
 }

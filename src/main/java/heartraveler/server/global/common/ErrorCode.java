@@ -19,7 +19,14 @@ public enum ErrorCode implements ErrorResponseCode {
     USER_ALREADY_EXIST(HttpStatus.BAD_REQUEST, "USER4000", "사용자가 이미 존재합니다."),
 
     // 리뷰 관련 에러
-    REVIEW_NOT_FOUND(HttpStatus.NOT_FOUND, "REVIEW4000", "리뷰를 찾을 수 없습니다.");
+    REVIEW_NOT_FOUND(HttpStatus.NOT_FOUND, "REVIEW4000", "리뷰를 찾을 수 없습니다."),
+
+    // 장소 관련 에러
+    PLACE_NOT_FOUND(HttpStatus.NOT_FOUND, "PLACE4000", "장소를 찾을 수 없습니다."),
+
+    // 리뷰 관련 에러
+    RESERVATION_NOT_FOUND(HttpStatus.NOT_FOUND, "RESERVATION4000", "예약을 찾을 수 없습니다.");
+
 
     private final HttpStatus httpStatus;
     private final String code;
