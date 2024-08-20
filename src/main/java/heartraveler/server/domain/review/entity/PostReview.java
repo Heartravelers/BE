@@ -7,6 +7,7 @@ import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Builder
@@ -38,4 +39,13 @@ public class PostReview extends BaseEntity {
 
     @OneToMany(mappedBy = "postReview", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ReviewScrap> reviewScraps = new ArrayList<>();
+
+    public void setReviewImgs(List<ReviewImg> images) {
+        this.reviewImgs = images.stream()
+                .map(reviewImg -> {
+                    reviewImg.setPostReview(this);
+                    return reviewImg;
+                })
+                .collect(Collectors.toList());
+    }
 }

@@ -23,5 +23,9 @@ public class ReviewImg extends BaseEntity {
     @JoinColumn(name = "review_id")
     private PostReview postReview;
 
+    public void setPostReview(PostReview review) {
+        this.postReview = review;
+    }
+
 
 }

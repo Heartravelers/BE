@@ -19,9 +19,10 @@ public class ApiResponse<T> {
     private T result;
 
     // 성공한 경우 응답 생성
-    public static <T> ApiResponse<T> onSuccess(BaseResponseCode responseCode, T result) {
-        return new ApiResponse<>(responseCode.getCode(), responseCode.getMessage(), result);
+    public static <T> ApiResponse<T> onSuccess(SuccessCode successCode) {
+        return new ApiResponse<>(successCode.getCode(), successCode.getMessage(),null);
     }
+
 
     // 실패한 경우 응답 생성
     public static <T> ApiResponse<T> onFailure(String code, String message, T data) {
