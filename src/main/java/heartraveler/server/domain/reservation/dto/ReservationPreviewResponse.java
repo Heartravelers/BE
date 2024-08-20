@@ -10,18 +10,20 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class RecentReservationResponse {
+public class ReservationPreviewResponse {
     private Long reservationId;
     private Long placeId;
     private String placeName;
     private String imgUrl;
+    private String reservationOption;
 
-    public static RecentReservationResponse from (Reservation reservation){
-        return RecentReservationResponse.builder()
+    public static ReservationPreviewResponse from (Reservation reservation){
+        return ReservationPreviewResponse.builder()
                 .reservationId(reservation.getId())
                 .placeId(reservation.getPlace().getId())
                 .placeName(reservation.getPlace().getName())
                 .imgUrl(reservation.getPlace().getImageUrl())
+                .reservationOption(reservation.getReservationOption())
                 .build();
     }
 }
