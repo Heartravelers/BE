@@ -26,15 +26,25 @@ public class UserProfile {
     @Column(name = "sum_mileage")
     private int sumMileage;
 
+    @Setter
     @Column(name = "name")
     private String name;
 
+    @Setter
     @Column(name = "intro")
     private String intro;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "badges")
-    private Badge badges;
+    @Column(name = "badge1")
+    private Badge badge1;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "badge2")
+    private Badge badge2;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "badge3")
+    private Badge badge3;
 
     @Column(name = "login_status", nullable = false, columnDefinition = "boolean default 0")
     private boolean loginStatus;
@@ -66,5 +76,10 @@ public class UserProfile {
     @OneToMany(mappedBy = "blocked", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<UserBlock> blocked= new ArrayList<>();
 
+    public void setBadges(List<Badge> badges) {
+        this.badge1 = badges.get(0);
+        this.badge2 = badges.get(1);
+        this.badge3 = badges.get(2);
+    }
 
 }

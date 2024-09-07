@@ -4,8 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
 
-import static org.springframework.http.HttpStatus.CREATED;
-
 @Getter
 @AllArgsConstructor
 public enum SuccessCode implements BaseResponseCode {
@@ -17,6 +15,9 @@ public enum SuccessCode implements BaseResponseCode {
 
     //리뷰 관련 응답
     CREATE_REVIEW_SUCCESS(HttpStatus.CREATED, "REVIEW201","리뷰 작성 성공"),
+
+    //프로필 수정 관련 응답
+    UPDATE_PROFILE_SUCCESS(HttpStatus.OK, "PROFILE200", "프로필 업데이트 성공")
 
     ;
 
